@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Publish server</title>
+</head>
+<body>
+    <h1>版本发布服务器</h1>
+    <form action="http://192.168.80.154:9090/publish" method="POST">
+        <div>
+            <label for="i1">版本号:</label>
+            <input id="i1" name="version" type="text">
+        </div>
+        <div>
+            <label>选择发布内容:</label>
+            <input name="software" value="stub" type="radio">launcher
+            <input name="software" value="sdk" type="radio">sdk
+            <input name="software" value="ezlib" type="radio">ezlib
+        </div>
+        <div>
+                <label>选择发布分支:</label>
+                <input name="branch" value="qa" type="radio">qa
+                <input name="branch" value="master" type="radio">master
+        </div>
+        <div>
+                <input type="submit" value="发布">
+                <input type="reset" value="重置">
+        </div>
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+{
+    "appid":1000,
+	"name":"client",
+	"ExecutePath":"..\\client\\npl-client.exe",
+	"Workspace":".\\"
+}

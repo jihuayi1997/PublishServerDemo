@@ -1,0 +1,6 @@
+{
+    "appid":1001,
+	"name":"npl-csharp-demo.exe",
+	"ExecutePath":"..\\CSharp\\npl-csharp-demo.exe",
+	"Workspace":".\\"
+}
