@@ -42,12 +42,15 @@ if [ $# -lt 1 ]; then
 fi
 
 
-while getopts "c:p:g" arg
+while getopts "c:d:p:g" arg
 do
 	case $arg in
 		c)
 			git_checkout npl-launcher $OPTARG
 			git_checkout npl-sdk-prj $OPTARG
+			;;
+		d)
+			git_checkout npl-launcher $OPTARG
 			;;
 		p)
 			git_pull npl-launcher

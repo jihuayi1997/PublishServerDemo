@@ -27,11 +27,11 @@ branch=$2
 version=$3
 check=$4
 
-if [ ! "$branch" == "master" ] && [ ! "$branch" == "qa" ]; then
+'''if [ ! "$branch" == "master" ] && [ ! "$branch" == "qa" ]; then
     log_info "branch using 'qa' or 'master'"
     #pause_exit
     exit 2
-fi
+fi'''
 
 v=(${version//./ })
 
