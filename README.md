@@ -6,6 +6,12 @@
 
 
 
+远程签名脚本：把remotesig.sh，signLists.txt 放入工程目录，以LF编码修改signLists
+
+
+
+
+
 ### 使用方法
 
 * 切换当前分支
