@@ -1,2 +1,2 @@
 npl-base.dll
-sdk/npl-base.dll
+sdk/npl-sdk.dll
