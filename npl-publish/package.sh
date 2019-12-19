@@ -56,6 +56,9 @@ function package_stub()
     package_stub_binary x86 $target_dir/bin/x86
     package_stub_binary x64 $target_dir/bin/x64
 
+    cp -rd $cur_dir/../dependence/luajit/bin/x86/*.dll                  $target_dir/bin/x86
+    cp -rd $cur_dir/../dependence/luajit/bin/x64/*.dll                  $target_dir/bin/x64
+
     cp -d $cur_dir/../npl-launcher/npl-stub/npl-stub.h                  $target_dir/include/
     cp -d $cur_dir/../npl-launcher/npl-stub/npl-stub-macro.h            $target_dir/include/
     cp -d $cur_dir/../npl-launcher/npl-stub/npl-stub-interface.h        $target_dir/include/
@@ -84,6 +87,7 @@ function package_launcher()
 
     # copy files from source directory
     cp -rd $cur_dir/../npl-launcher/bin/$platform/Release/npl-platform.exe  $target_dir/
+    cp -rd $cur_dir/../dependence/luajit/bin/$platform/*.dll                $target_dir/
     cp -rd $cur_dir/npl-platform/*                                          $target_dir/
 
     # copy overlay ui component

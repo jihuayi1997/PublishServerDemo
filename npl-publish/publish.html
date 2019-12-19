@@ -7,7 +7,27 @@
     <title>Publish server</title>
 </head>
 <body>
+    
     <h1>版本发布服务器</h1>
+
+    <h2>切换分支</h2>
+    <a href="http://192.168.80.154:9090/switchvg">
+        <button>launcher切换vg.</button>
+    </a>
+    
+    <a href="http://192.168.80.154:9090/switchqa">
+        <button>sdk,launcher切换qa.</button>
+    </a>
+    
+    <a href="http://192.168.80.154:9090/switchmaster">
+        <button>sdk,launcher切换master.</button>
+    </a>
+
+    <h2>更新当前分支</h2>
+    <a href="http://192.168.80.154:9090/update">
+        <button>update&&switch submodule.</button>
+    </a>
+    <h2>发布版本</h2>
     <form action="http://192.168.80.154:9090/publish" method="POST">
         <div>
             <label for="i1">版本号:</label>
@@ -30,6 +50,14 @@
                 <input type="reset" value="重置">
         </div>
     </form>
-
+    
+    <h2>文件签名</h2>
+    <a href="http://192.168.80.154:8086">
+        <button>待签名文件上传</button>
+    </a>
+    <h2>查看发布日志</h2>
+    <a href="http://192.168.80.154:8080">
+        <button>签名文件下载&&日志查看</button>
+    </a>
 </body>
 </html>
