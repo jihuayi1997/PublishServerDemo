@@ -13,10 +13,12 @@ import (
 func main()  {
 	http.HandleFunc("/", index)
 	http.HandleFunc("/publish", publish)
-	http.HandleFunc("/update", update)
-	http.HandleFunc("/switchqa", switchqa)
-	http.HandleFunc("/switchmaster", switchmaster)
-	http.HandleFunc("/switchvg", switchvg)
+	http.HandleFunc("/launchermaster", launchermaster)
+	http.HandleFunc("/launcherqa", launcherqa)
+	http.HandleFunc("/sdkmaster", sdkmaster)
+	http.HandleFunc("/sdkqa", sdkqa)
+	http.HandleFunc("/launchervg", launchervg)
+	http.HandleFunc("/dep", dep)
 	err := http.ListenAndServe(":9090", nil)
 	if err != nil {
 		fmt.Println("服务器启动失败", err.Error())
@@ -24,7 +26,7 @@ func main()  {
 	}
 }
 
-func update(writer http.ResponseWriter, request *http.Request) {
+func launcherqa(writer http.ResponseWriter, request *http.Request) {
 	flag := true
 	if _, err := os.Stat("D:\\Cerberus\\npl-publish\\auto.sh"); os.IsNotExist(err) {
 		flag = false
@@ -34,7 +36,7 @@ func update(writer http.ResponseWriter, request *http.Request) {
 		//command := "csigntool.exe"
 		shellPath := "git-bash.exe"
 		//params := []string{"sign","/r","SDK","/f","\"D:\\Cerberus\\npl-publish\\tools\\uploadfile\\"+handler.Filename+"\""}
-		params := []string{"auto.sh","-p","all"}
+		params := []string{"auto.sh","-d","qa"}
 		cmd := exec.Command(shellPath, params...)
 
 	//显示运行的命令
@@ -64,11 +66,11 @@ func update(writer http.ResponseWriter, request *http.Request) {
 	cmd.Wait()
 
 	//fmt.Println("ProcessState PID:", cmd.ProcessState.Pid())
-	fmt.Fprintln(writer, "ezlib dependence sdk launcher updated!")
+	fmt.Fprintln(writer, "Launcher switched to qa, all updated!")
 	}
 }
 
-func switchqa(writer http.ResponseWriter, request *http.Request) {
+func sdkqa(writer http.ResponseWriter, request *http.Request) {
 	flag := true
 	if _, err := os.Stat("D:\\Cerberus\\npl-publish\\auto.sh"); os.IsNotExist(err) {
 		flag = false
@@ -108,11 +110,11 @@ func switchqa(writer http.ResponseWriter, request *http.Request) {
 	cmd.Wait()
 
 	//fmt.Println("ProcessState PID:", cmd.ProcessState.Pid())
-	fmt.Fprintln(writer, "Switched to qa: sdk,launcher!")
+	fmt.Fprintln(writer, "SDK switched to qa, all updated!")
 	}
 }
 
-func switchvg(writer http.ResponseWriter, request *http.Request) {
+func launchervg(writer http.ResponseWriter, request *http.Request) {
 	flag := true
 	if _, err := os.Stat("D:\\Cerberus\\npl-publish\\auto.sh"); os.IsNotExist(err) {
 		flag = false
@@ -152,11 +154,11 @@ func switchvg(writer http.ResponseWriter, request *http.Request) {
 	cmd.Wait()
 
 	//fmt.Println("ProcessState PID:", cmd.ProcessState.Pid())
-	fmt.Fprintln(writer, "Switched to vg: launcher!")
+	fmt.Fprintln(writer, "Launcher switched to vg, all updated!")
 	}
 }
 
-func switchmaster(writer http.ResponseWriter, request *http.Request) {
+func sdkmaster(writer http.ResponseWriter, request *http.Request) {
 	flag := true
 	if _, err := os.Stat("D:\\Cerberus\\npl-publish\\auto.sh"); os.IsNotExist(err) {
 		flag = false
@@ -197,7 +199,96 @@ func switchmaster(writer http.ResponseWriter, request *http.Request) {
 	cmd.Wait()
 
 	//fmt.Println("ProcessState PID:", cmd.ProcessState.Pid())
-	fmt.Fprintln(writer, "Switched to master: sdk,launcher!")
+	fmt.Fprintln(writer, "SDK switched to master, all updated!")
+	}
+}
+
+func launchermaster(writer http.ResponseWriter, request *http.Request) {
+	flag := true
+	if _, err := os.Stat("D:\\Cerberus\\npl-publish\\auto.sh"); os.IsNotExist(err) {
+		flag = false
+	}
+
+	if flag==true{
+		//command := "csigntool.exe"
+		shellPath := "git-bash.exe"
+		//params := []string{"sign","/r","SDK","/f","\"D:\\Cerberus\\npl-publish\\tools\\uploadfile\\"+handler.Filename+"\""}
+		params := []string{"auto.sh","-d","master"}
+		cmd := exec.Command(shellPath, params...)
+
+	//显示运行的命令
+	fmt.Fprintln(writer, cmd.Args)
+	fmt.Println(cmd.Args)
+
+	stdout, err := cmd.StdoutPipe()
+
+	if err != nil {
+		fmt.Fprintln(writer, err)
+		fmt.Println(err)
+	}
+	
+	cmd.Start()
+
+	reader := bufio.NewReader(stdout)
+
+	//实时循环读取输出流中的一行内容
+	for {
+		line, err2 := reader.ReadString('\n')
+		if err2 != nil || io.EOF == err2 {
+			break
+		}
+		fmt.Fprintln(writer, line)
+		fmt.Println(line)
+	}
+
+	cmd.Wait()
+
+	//fmt.Println("ProcessState PID:", cmd.ProcessState.Pid())
+	fmt.Fprintln(writer, "Launcher switched to master, all updated!")
+	}
+}
+
+func dep(writer http.ResponseWriter, request *http.Request) {
+	flag := true
+	if _, err := os.Stat("D:\\Cerberus\\npl-publish\\auto.sh"); os.IsNotExist(err) {
+		flag = false
+	}
+
+	if flag==true{
+		//command := "csigntool.exe"
+		shellPath := "git-bash.exe"
+		//params := []string{"sign","/r","SDK","/f","\"D:\\Cerberus\\npl-publish\\tools\\uploadfile\\"+handler.Filename+"\""}
+		params := []string{"auto.sh","-p","dep"}
+		cmd := exec.Command(shellPath, params...)
+
+	//显示运行的命令
+	fmt.Println(cmd.Args)
+
+	stdout, err := cmd.StdoutPipe()
+
+	if err != nil {
+		fmt.Fprintln(writer, err)
+		fmt.Println(err)
+	}
+	
+	cmd.Start()
+
+	reader := bufio.NewReader(stdout)
+
+	//实时循环读取输出流中的一行内容
+	for {
+		line, err2 := reader.ReadString('\n')
+		if err2 != nil || io.EOF == err2 {
+			break
+		}
+		fmt.Fprintln(writer, line)
+		fmt.Println(line)
+	}
+
+	cmd.Wait()
+
+	//fmt.Println("ProcessState PID:", cmd.ProcessState.Pid())
+	fmt.Fprintln(writer, "Ezlib, Dependence updated!")
 	}
 }
 
@@ -254,6 +345,6 @@ func publish(writer http.ResponseWriter, request *http.Request) {
 	cmd.Wait()
 
 	//fmt.Println("ProcessState PID:", cmd.ProcessState.Pid())
-	fmt.Fprintln(writer, "Publish done!")
+	fmt.Fprintln(writer, "Publish done! You can see if it is successfully published in the log!")
 	}
 }

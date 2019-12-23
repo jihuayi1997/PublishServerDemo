@@ -46,15 +46,18 @@ while getopts "c:d:p:g" arg
 do
 	case $arg in
 		c)
-			git_checkout npl-launcher $OPTARG
 			git_checkout npl-sdk-prj $OPTARG
+			git_pull npl-sdk-prj
+			git_pull dependence
+            git_pull ezlib
 			;;
 		d)
 			git_checkout npl-launcher $OPTARG
+			git_pull npl-launcher
+			git_pull dependence
+            git_pull ezlib
 			;;
 		p)
-			git_pull npl-launcher
-			git_pull npl-sdk-prj
 			git_pull dependence
             git_pull ezlib
 			;;
