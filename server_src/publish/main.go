@@ -19,6 +19,7 @@ func main()  {
 	http.HandleFunc("/sdkqa", sdkqa)
 	http.HandleFunc("/launchervg", launchervg)
 	http.HandleFunc("/dep", dep)
+	http.HandleFunc("/demo", demo)
 	err := http.ListenAndServe(":9090", nil)
 	if err != nil {
 		fmt.Println("服务器启动失败", err.Error())
@@ -289,6 +290,47 @@ func dep(writer http.ResponseWriter, request *http.Request) {
 
 	//fmt.Println("ProcessState PID:", cmd.ProcessState.Pid())
 	fmt.Fprintln(writer, "Ezlib, Dependence updated!")
+	}
+}
+
+func demo(writer http.ResponseWriter, request *http.Request) {
+	flag := true
+	if _, err := os.Stat("D:\\Cerberus\\npl-publish\\auto.sh"); os.IsNotExist(err) {
+		flag = false
+	}
+
+	if flag==true{
+		shellPath := "git-bash.exe"
+		cmd := exec.Command(shellPath, "Jzip.sh")
+
+	//显示运行的命令
+	fmt.Println(cmd.Args)
+
+	stdout, err := cmd.StdoutPipe()
+
+	if err != nil {
+		fmt.Fprintln(writer, err)
+		fmt.Println(err)
+	}
+	
+	cmd.Start()
+
+	reader := bufio.NewReader(stdout)
+
+	//实时循环读取输出流中的一行内容
+	for {
+		line, err2 := reader.ReadString('\n')
+		if err2 != nil || io.EOF == err2 {
+			break
+		}
+		fmt.Fprintln(writer, line)
+		fmt.Println(line)
+	}
+
+	cmd.Wait()
+
+	//fmt.Println("ProcessState PID:", cmd.ProcessState.Pid())
+	fmt.Fprintln(writer, "Demo published!")
 	}
 }
 

@@ -5,7 +5,7 @@ cur_time=$(date "+%Y%m%d%H%M")
 
 case $project in
     ezlib)
-        if [[ $branch == "qa" ]];then
+        if [[ $branch == "master" ]];then
             curl http://192.168.80.154:9090/dep
             curl -d "software=ezlib&branch=master&version=$version" http://192.168.80.154:9090/publish
             curl -o $cur_time.log http://192.168.80.154:8080/$cur_time.log
@@ -50,5 +50,9 @@ case $project in
         else
             echo "Don't input wrong branches..."
         fi
+    ;;
+
+    demo)
+        curl http://192.168.80.154:9090/demo
     ;;
 esac
