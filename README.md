@@ -1,12 +1,10 @@
 远程签名脚本：把remotesig.sh，signLists.txt 放入工程目录，以LF编码修改signLists
 
+远程发布脚本：./remotepub.sh project branch version
 
 
 
-
-[版本发布](http://192.168.80.154:9090) *(W:/Npl/QA/sdk||stub)或(W:/Npl/Release/sdk||stub)*
-
-
+[网页版](http://192.168.80.154:9090) *(W:/Npl/QA/sdk||stub)或(W:/Npl/Release/sdk||stub)*
 
 
 
